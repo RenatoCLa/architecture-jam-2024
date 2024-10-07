@@ -8,6 +8,7 @@ radius = 25.0
 
 [node name="Base Enemy" type="CharacterBody2D"]
 position = Vector2(73, 1)
+motion_mode = 1
 script = ExtResource("1_tcg4s")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
