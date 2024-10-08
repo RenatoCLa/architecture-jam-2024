@@ -1,10 +1,10 @@
 extends CharacterBody2D
-class_name EnemyBase
+class_name Enemy
 
 #enemy attributes
-var speed: int = 250
-var health: int = 10
-var damage: int = 2
+@export var speed: float = 25
+@export var health: float = 10
+@export var damage: float = 2
 
 #booleans
 var can_attack: bool = false
@@ -22,13 +22,10 @@ func _physics_process(delta: float) -> void:
 	if can_attack == true:
 		attack()
 
-func movement():
+func movement() -> void:
 	player_pos = player.global_position
-	if !(global_position.distance_to(player_pos) < 15):
-		direction = global_position.direction_to(player_pos)
-		velocity = direction * speed
-	else:
-		velocity = Vector2.ZERO
+	direction = global_position.direction_to(player_pos)
+	velocity = direction * speed
 		
 	move_and_slide()
 
@@ -50,3 +47,13 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		print("out of range")
 		can_attack = false
 		attack_cd.stop()
+
+func take_damage(dmg: float) -> void:
+	health -= dmg
+	if(health <= 0):
+		die()
+
+func die() -> void:
+	queue_free()
+	#drop exp
+	#play death animation

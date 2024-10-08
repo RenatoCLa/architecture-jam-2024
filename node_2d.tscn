@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://du0trq51mpq3w"]
+
+[ext_resource type="Script" path="res://Scripts/Class Scripts/generic_attack.gd" id="1_qy1ka"]
+
+[node name="Node2D" type="CharacterBody2D"]
+metadata/cd_reduct = 25.0
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("1_qy1ka")
