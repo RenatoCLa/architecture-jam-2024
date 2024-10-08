@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://1q8hs8188bfu"]
+[gd_scene load_steps=11 format=3 uid="uid://1q8hs8188bfu"]
 
 [ext_resource type="Script" path="res://Scripts/player_script.gd" id="1_w14cx"]
 [ext_resource type="Texture2D" uid="uid://cfxol6j2iyqcw" path="res://Sprites/icon.svg" id="2_3wsjd"]
+[ext_resource type="JSON" path="res://json/weapons.json" id="2_ye4wc"]
 [ext_resource type="Texture2D" uid="uid://buy5rv280aqje" path="res://Sprites/bac.png" id="3_uyuoo"]
 [ext_resource type="Texture2D" uid="uid://jbupabfjuqys" path="res://Sprites/backdrop.png" id="4_qygbs"]
 [ext_resource type="Script" path="res://Scripts/detect_enemies.gd" id="5_7255h"]
@@ -14,12 +15,13 @@ height = 22.0
 radius = 18.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ngnva"]
-radius = 300.0
+radius = 225.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 motion_mode = 1
-platform_floor_layers = 4278190080
+platform_floor_layers = 0
 script = ExtResource("1_w14cx")
+weapon_list = ExtResource("2_ye4wc")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.328125, 0.328125)
@@ -51,18 +53,16 @@ collision_layer = 4
 collision_mask = 2
 script = ExtResource("5_7255h")
 
-[node name="Slot1" type="Node" parent="Holster"]
+[node name="Slot1" type="Node" parent="Holster" groups=["weapon"]]
 
-[node name="Slot2" type="Node" parent="Holster"]
+[node name="Slot2" type="Node" parent="Holster" groups=["weapon"]]
 
-[node name="Slot3" type="Node" parent="Holster"]
+[node name="Slot3" type="Node" parent="Holster" groups=["weapon"]]
 
-[node name="Slot4" type="Node" parent="Holster"]
+[node name="Slot4" type="Node" parent="Holster" groups=["weapon"]]
 
-[node name="DefaultWeapon" type="Node" parent="Holster"]
+[node name="DefaultWeapon" type="Node" parent="Holster" groups=["weapon"]]
 script = ExtResource("5_76407")
-damage = 5.0
-cd = 1.0
 
 [node name="Enemy Detection" type="CollisionShape2D" parent="Holster"]
 shape = SubResource("CircleShape2D_ngnva")

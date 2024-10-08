@@ -1,31 +1,53 @@
 extends Node
 class_name attack
 
-@export var damage: float # attack dmg
-@export var duration: float # how long the projectile will travel
-@export var size: float #size of the projectile
-@export var cd: float #cooldown
+@export var damage: float = 5# attack dmg
+@export var duration: float = 1# how long the projectile will travel
+@export var cd: float = 1#cooldown
 
 #multipliers
-var dmg_multi: float
-var size_multi: float
-var cd_reduct: float
+var dmg_multi: float = 0
+var size_multi: float = 0
+var cd_reduct: float = 0 # 0 - 9
 
-var timer: Timer
+# timer for the attack cooldown
+var attack_cd: Timer
 
 func _ready() -> void:
-	timer = Timer.new()
-	add_child(timer)
-	timer.one_shot = true
-	timer.start(cd - (cd * cd_reduct))
-	timer.timeout.connect(_attack)
+	var parent: CharacterBody2D = get_tree().get_first_node_in_group("player")
+	if parent.has_signal("call_update_stats"):
+		parent.call_update_stats.connect(_update_stats)
+	
+	#creates timer
+	attack_cd = Timer.new()
+	#adds timer as a child of the node
+	add_child(attack_cd)
+	#set timer to play only once
+	attack_cd.one_shot = true
+	#start timer with the correct cooldown values
+	attack_cd.start(cd - (cd * cd_reduct))
+	#connects the timer to the attack function
+	attack_cd.timeout.connect(_attack)
 
+func _update_stats(dmg_m: float, cd_r: float, size_m: float) -> void:
+	dmg_multi = dmg_m
+	cd_reduct = cd_r
+	size_multi = size_m
+	print("atualizado")
+
+#called when attack_cd timer stops
 func _attack() -> void:
-	var bullet = preload("res://Scenes/attacks/generic_bullet.tscn")
-	var new_bullet = bullet.instantiate()
+	#loads the bullet scene
+	var bullet: PackedScene = preload("res://Scenes/attacks/generic_bullet.tscn")
+	#creates a new instance
+	var new_bullet: Area2D = bullet.instantiate()
+	#adds the correct values to the bullet
+	new_bullet.global_scale = new_bullet.global_scale + (new_bullet.global_scale * size_multi)
+	new_bullet.damage = damage + (damage * dmg_multi)
 	new_bullet.global_position = get_parent().global_position
 	new_bullet.global_rotation = get_parent().global_rotation
-	new_bullet.damage = damage + (damage * dmg_multi)
-	print(new_bullet.damage)
+	#adds bullet to the scene
 	add_child(new_bullet)
-	timer.start(cd - (cd * cd_reduct))
+
+	#starts attack cooldown again
+	attack_cd.start(cd - (cd * cd_reduct))
