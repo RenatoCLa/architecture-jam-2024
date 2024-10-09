@@ -16,6 +16,7 @@ platform_floor_layers = 4278190080
 script = ExtResource("1_tcg4s")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(0, 0.521569, 0, 1)
 y_sort_enabled = true
 scale = Vector2(0.359375, 0.359375)
@@ -23,6 +24,8 @@ texture = ExtResource("2_ayr7t")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 2
+collision_priority = 0.0
+priority = 1
 
 [node name="Collision" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_r74yj")
@@ -35,5 +38,5 @@ shape = SubResource("CapsuleShape2D_5k27h")
 [node name="Attack_CD" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="body_entered" from="Hitbox" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Hitbox" to="." method="_on_area_2d_body_exited"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="area_exited" from="Hitbox" to="." method="_on_hitbox_area_exited"]

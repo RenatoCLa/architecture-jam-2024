@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://1q8hs8188bfu"]
+[gd_scene load_steps=12 format=3 uid="uid://1q8hs8188bfu"]
 
 [ext_resource type="Script" path="res://Scripts/player_script.gd" id="1_w14cx"]
 [ext_resource type="Texture2D" uid="uid://cfxol6j2iyqcw" path="res://Sprites/icon.svg" id="2_3wsjd"]
 [ext_resource type="JSON" path="res://json/weapons.json" id="2_ye4wc"]
+[ext_resource type="Script" path="res://Scripts/leveling_system.gd" id="3_1o6aa"]
 [ext_resource type="Texture2D" uid="uid://buy5rv280aqje" path="res://Sprites/bac.png" id="3_uyuoo"]
 [ext_resource type="Texture2D" uid="uid://jbupabfjuqys" path="res://Sprites/backdrop.png" id="4_qygbs"]
 [ext_resource type="Script" path="res://Scripts/detect_enemies.gd" id="5_7255h"]
@@ -23,7 +24,11 @@ platform_floor_layers = 0
 script = ExtResource("1_w14cx")
 weapon_list = ExtResource("2_ye4wc")
 
+[node name="XP" type="Node" parent="."]
+script = ExtResource("3_1o6aa")
+
 [node name="Sprite" type="Sprite2D" parent="."]
+visible = false
 scale = Vector2(0.328125, 0.328125)
 texture = ExtResource("2_3wsjd")
 

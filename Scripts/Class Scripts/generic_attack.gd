@@ -2,7 +2,6 @@ extends Node
 class_name attack
 
 @export var damage: float = 5# attack dmg
-@export var duration: float = 1# how long the projectile will travel
 @export var cd: float = 1#cooldown
 
 #multipliers
@@ -17,7 +16,6 @@ func _ready() -> void:
 	var parent: CharacterBody2D = get_tree().get_first_node_in_group("player")
 	if parent.has_signal("call_update_stats"):
 		parent.call_update_stats.connect(_update_stats)
-	
 	#creates timer
 	attack_cd = Timer.new()
 	#adds timer as a child of the node
@@ -48,6 +46,5 @@ func _attack() -> void:
 	new_bullet.global_rotation = get_parent().global_rotation
 	#adds bullet to the scene
 	add_child(new_bullet)
-
 	#starts attack cooldown again
 	attack_cd.start(cd - (cd * cd_reduct))

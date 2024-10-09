@@ -34,7 +34,7 @@ func _ready() -> void:
 	health_bar.max_value = max_health
 	health_bar.value = current_health
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	#hide health bar if health is full
 	if current_health == max_health:
 		health_bar.hide()
@@ -66,19 +66,23 @@ func _add_weapon(id: int) -> void:
 	var size: int = weapon_slots.size()
 	#if player has 4 weapons, don't add another weapon
 	#as the player inventory is full
-	if size == 3:
+	if size >= 4:
 		#maybe let player swap weapons
 		pass
 	#if player inventory is not full
 	else:
 		#gets list of all weapons
-		var data = weapon_list.data.weapons[id]
+		var data: Dictionary = weapon_list.data.weapons[id]
+		var weapon_id: int = data.id
 		#gets current free inv slot
-		var slot = $Holster.get_child(size)
+		var slot: Node = $Holster.get_child(size)
 		#gets script dir
-		var script = str(data.script)
+		var script: String = str(data.script)
 		#sets attack script to weapon slot
 		slot.set_script(load(script))
+		slot.call("_ready")
+		weapon_slots.append(weapon_id)
+		print(weapon_slots)
 		#change slot name to fit weapon name
 		slot.name += "-" + data.name
 		update_stats()
