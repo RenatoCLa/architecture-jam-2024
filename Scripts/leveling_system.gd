@@ -2,11 +2,11 @@ extends Node
 
 var level: int = 1
 var current_xp: int = 0
-var xp_treshold: int = 1
-var xp_increase: int = 1
+var xp_treshold: int = 25
+var xp_increase: int = 15
 var xp_increase_multi: int = 0.5
-@onready var ui_h = $"../POP_UP_GUI"
 
+@onready var ui_h = $"../POP_UP_GUI"
 @export var upgrade_menu = preload("res://Scenes/level_up_choices.tscn")
 
 var window_opened = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://1q8hs8188bfu"]
+[gd_scene load_steps=12 format=3 uid="uid://1q8hs8188bfu"]
 
 [ext_resource type="Script" path="res://Scripts/player_script.gd" id="1_w14cx"]
 [ext_resource type="Texture2D" uid="uid://cfxol6j2iyqcw" path="res://Sprites/icon.svg" id="2_3wsjd"]
@@ -8,6 +8,12 @@
 [ext_resource type="Script" path="res://Scripts/detect_enemies.gd" id="5_7255h"]
 [ext_resource type="Script" path="res://Scripts/Class Scripts/generic_attack.gd" id="5_76407"]
 
+[sub_resource type="Curve2D" id="Curve2D_td6gv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 500, 0, 0, 0, 0, 800, 500, 0, 0, 0, 0, 800, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 5
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y2p1o"]
 height = 22.0
 
@@ -15,7 +21,7 @@ height = 22.0
 radius = 18.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ngnva"]
-radius = 225.0
+radius = 275.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 motion_mode = 1
@@ -23,6 +29,16 @@ platform_floor_layers = 0
 script = ExtResource("1_w14cx")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Spawn Area" type="Path2D" parent="Camera2D"]
+position = Vector2(-400, -250)
+curve = SubResource("Curve2D_td6gv")
+
+[node name="Spawn Range" type="PathFollow2D" parent="Camera2D/Spawn Area"]
+rotation = 1.5708
+
+[node name="Spawn Pivot" type="Marker2D" parent="Camera2D/Spawn Area/Spawn Range"]
+rotation = 1.5708
 
 [node name="POP_UP_GUI" type="CanvasLayer" parent="."]
 

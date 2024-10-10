@@ -3,6 +3,8 @@ extends Node2D
 var enemy: PackedScene = preload("res://Scenes/base_enemy.tscn")
 @onready var player: CharacterBody2D = get_tree().get_first_node_in_group("player")
 @onready var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+@onready var spawn_range: PathFollow2D
+@onready var spawn_pivot: Marker2D
 
 var g_dmg_multi: float = 0
 var g_speed_multi: float = 0
@@ -21,6 +23,9 @@ var player_pos: Vector2
 @onready var pos_timer: Timer = Timer.new()
 
 func _ready() -> void:
+	spawn_range = player.spawn_range
+	spawn_pivot = player.spawn_pivot
+	
 	pos_timer.wait_time = .3
 	pos_timer.one_shot = true
 	pos_timer.timeout.connect(update_pos)
@@ -44,7 +49,13 @@ func spawn(enemy):
 	var entity = enemy.instantiate()
 	apply_stats(entity)
 	entity.player = player
+	entity.global_position = rand_position()
 	add_child(entity)
+
+func rand_position() -> Vector2:
+	rng.randomize()
+	spawn_range.progress = rng.randi_range(0, 2600)
+	return spawn_pivot.global_position
 
 func apply_stats(enemy):
 	enemy.hp_multi = stat_range(g_hp_multi)
@@ -102,6 +113,7 @@ func wave_spawning() -> void:
 	var current_wave = current_wave_size
 	print("current wave: " , wave)
 	while spawned_enemies < current_wave:
+		rng.randomize()
 		await get_tree().create_timer(rng.randf_range(0, 2), false).timeout
 		spawn(enemy)
 		spawned_enemies += 1

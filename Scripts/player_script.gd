@@ -24,6 +24,8 @@ var direction: Vector2
 
 #nodes
 @onready var health_bar: TextureProgressBar = $HealthBar
+@onready var spawn_range = $"Camera2D/Spawn Area/Spawn Range"
+@onready var spawn_pivot = $"Camera2D/Spawn Area/Spawn Range/Spawn Pivot"
 
 func _ready() -> void:
 	#makes the player be full hp

@@ -17,10 +17,12 @@ func _ready() -> void:
 	decide_card_amount()
 
 func decide_card_amount() -> void:
+	rng.randomize()
 	var amount = [1, 2, 3, 4][rng.rand_weighted([0.05, 0.5, 5, 0.1])]
 	spawn_choices(amount)
 
 func choose_upgrade():
+	rng.randomize()
 	var type = up_pool.pick_random()
 	var value = [1, 5, 10, 15, 20, 25][rng.rand_weighted([.1, 3, 2, 1, .5, .1])]
 	return [type, value]
