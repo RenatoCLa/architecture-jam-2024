@@ -4,13 +4,16 @@ signal call_update_stats()
 
 #stats
 var speed: float = 150
+var base_speed: float = 150
 var max_health: float = 100
+var base_max_health: float = 100
+var base_current_health: float
 var current_health: float
 
 #stats multipliers
 var hp_multi: float = 0
 var dmg_multi: float = 0
-var speed_multi: float = 2
+var speed_multi: float = 0
 var size_multi: float = 0
 var cd_reduct: float = 0
 
@@ -23,13 +26,10 @@ var direction: Vector2
 #nodes
 @onready var health_bar: TextureProgressBar = $HealthBar
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("dodge"):
-		_add_weapon(1)
-
 func _ready() -> void:
 	#makes the player be full hp
 	current_health = max_health
+	base_current_health = base_max_health
 	#sets the values in the hp bar to match the player
 	health_bar.max_value = max_health
 	health_bar.value = current_health
@@ -53,13 +53,35 @@ func movement() -> void:
 	#moves the player
 	move_and_slide()
 
+func update_multiplier(data) -> void:
+	var type = data[0]
+	var value: float = data[1]
+	print("  " , type , "   " , value)
+	match type:
+		"dmg":
+			dmg_multi += value/100
+			print("dmg_multi ", dmg_multi)
+		"health":
+			hp_multi += value/100
+		"cd":
+			cd_reduct += (value/100)/25
+			cd_reduct = clampf(cd_reduct, 0.0, 0.8)
+		"speed":
+			speed_multi += (value/100)/50
+			print("speed multi: ", speed_multi)
+	update_stats()
+
 func update_stats() -> void:
 	#call this everytime a stat bonus is received
 	#used to make sure every function that needs these
 	#stats will have the current stat and not a previous
 	#one
+	max_health = base_max_health + (base_max_health * hp_multi)
+	speed = speed + (speed * speed_multi)
+	speed = clampf(speed, 0.0, 1500.0)
+	print(speed)
 	call_update_stats.emit(dmg_multi, cd_reduct, size_multi)
-	pass
+	update_health_bar()
 
 func _add_weapon(id: int) -> void:
 	#checks how many weapons player has
@@ -97,7 +119,7 @@ func update_health_bar() -> void:
 func _take_damage(damage: int) -> void:
 	#reduces hp based on amount of damage taken
 	current_health -= damage
-	print(current_health)
+	print("hp ", current_health)
 	#updates healthbar to acuratly display new hp
 	update_health_bar()
 	#if health is depleted

@@ -1,0 +1,90 @@
+[gd_scene load_steps=5 format=3 uid="uid://bylv3pvhqi8b0"]
+
+[ext_resource type="Script" path="res://Scripts/upg_option.gd" id="1_dfbe2"]
+[ext_resource type="Texture2D" uid="uid://cfxol6j2iyqcw" path="res://Sprites/icon.svg" id="1_i4bbv"]
+[ext_resource type="Texture2D" uid="uid://cg34xy48y0nx3" path="res://Sprites/base_floor_grass.png" id="1_p1vvv"]
+[ext_resource type="Theme" uid="uid://t73g016048ng" path="res://font_placeholder.tres" id="2_j5exn"]
+
+[node name="Upgrade Option" type="Control" node_paths=PackedStringArray("up_name", "icon", "description")]
+custom_minimum_size = Vector2(100, 150)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -62.5
+offset_right = 50.0
+offset_bottom = 87.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dfbe2")
+up_name = NodePath("Name")
+icon = NodePath("Icon")
+description = NodePath("Description")
+
+[node name="Background" type="TextureRect" parent="."]
+modulate = Color(0.169245, 0.169245, 0.169245, 1)
+custom_minimum_size = Vector2(100, 150)
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 125.0
+texture = ExtResource("1_p1vvv")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.0
+offset_top = -48.0
+offset_right = 27.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_i4bbv")
+expand_mode = 1
+
+[node name="Name" type="Label" parent="."]
+custom_minimum_size = Vector2(100, 15)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -50.0
+offset_top = 5.0
+offset_right = 50.0
+offset_bottom = 20.0
+grow_horizontal = 2
+theme = ExtResource("2_j5exn")
+text = "Rusty pistol"
+horizontal_alignment = 1
+autowrap_mode = 2
+clip_text = true
+
+[node name="Description" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -64.0
+offset_right = 50.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("2_j5exn")
+theme_override_font_sizes/font_size = 10
+text = "deals damage to enemies in sight!"
+horizontal_alignment = 1
+autowrap_mode = 2
+clip_text = true
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

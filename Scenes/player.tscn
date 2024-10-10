@@ -24,11 +24,12 @@ platform_floor_layers = 0
 script = ExtResource("1_w14cx")
 weapon_list = ExtResource("2_ye4wc")
 
+[node name="GUI" type="CanvasLayer" parent="."]
+
 [node name="XP" type="Node" parent="."]
 script = ExtResource("3_1o6aa")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-visible = false
 scale = Vector2(0.328125, 0.328125)
 texture = ExtResource("2_3wsjd")
 
