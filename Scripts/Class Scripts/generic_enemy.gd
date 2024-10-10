@@ -21,13 +21,19 @@ var can_attack: bool = false
 var direction: Vector2
 var player_pos: Vector2
 
+var player
 var player_node: CharacterBody2D
-
+@onready var wave_manager: Node2D = get_parent()
 @onready var attack_cd: Timer = $Attack_CD
-@onready var player: CharacterBody2D = get_tree().get_first_node_in_group("player")
 
 func _ready() -> void:
+	stat_multiplier()
+	attack_cd.process_mode = ProcessMode.PROCESS_MODE_PAUSABLE
+	print(attack_cd.process_mode)
+	
+func stat_multiplier() -> void:
 	global_scale += global_scale * size_multi
+	health += health * hp_multi
 
 func _physics_process(_delta: float) -> void:
 	#moves the enemy
@@ -38,7 +44,7 @@ func _physics_process(_delta: float) -> void:
 
 func movement() -> void:
 	#get players position
-	player_pos = player.global_position
+	player_pos = wave_manager.player_pos
 	#calculate the direction to reach player
 	direction = global_position.direction_to(player_pos)
 	#calculate the enemy velocity
@@ -67,11 +73,11 @@ func take_damage(dmg: float) -> void:
 func die() -> void:
 	#removes enemy from scene, should play a death anim
 	#first
-	@warning_ignore("narrowing_conversion")
-	var gained_xp: int = xp + (xp * .2)
+	var gained_xp: int = xp + roundf((xp * xp_multi))
 	queue_free()
 	player.propagate_call("gain_exp", [gained_xp])
-	print(gained_xp)
+	wave_manager.call("on_entity_death")
+	print("xp: ", gained_xp)
 	#drop exp or give exp directly to player
 	#play death animation
 

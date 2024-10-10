@@ -4,11 +4,12 @@ var damage: float
 var speed: float = 250
 
 var duration_timer: Timer
-var duration: float = 1.25
+var duration: float = 1.5
 
 func _ready() -> void:
 	duration_timer = Timer.new()
 	add_child(duration_timer)
+	duration_timer.process_mode = Node.PROCESS_MODE_PAUSABLE
 	duration_timer.one_shot = true
 	duration_timer.timeout.connect(hit)
 	duration_timer.start(duration)

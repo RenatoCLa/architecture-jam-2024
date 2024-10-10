@@ -5,7 +5,7 @@ var current_xp: int = 0
 var xp_treshold: int = 1
 var xp_increase: int = 1
 var xp_increase_multi: int = 0.5
-@onready var ui_h = $"../GUI"
+@onready var ui_h = $"../POP_UP_GUI"
 
 @export var upgrade_menu = preload("res://Scenes/level_up_choices.tscn")
 
@@ -16,13 +16,13 @@ func gain_exp(xp: int) -> void:
 	check_exp()
 
 func closed_window() -> void:
-	if !ui_h.get_child(0):
+	if ui_h.get_child_count() == 0:
 		get_tree().set_pause(false)
 		window_opened = false
 		check_exp()
 	else:
 		if get_tree():
-			get_tree().create_timer(1).timeout.connect(closed_window)
+			get_tree().create_timer(1, false).timeout.connect(closed_window)
 
 func check_exp() -> void:
 	if(current_xp >= xp_treshold) && !window_opened:
@@ -46,7 +46,5 @@ func pop_up_option() -> void:
 
 func increase_xp_treshold() -> void:
 	var temp_xp_increase = xp_increase * xp_increase_multi
-	print(xp_treshold, " ", xp_increase, " ", temp_xp_increase)
 	xp_treshold += xp_increase + temp_xp_increase
-	print(xp_treshold)
 	xp_increase = temp_xp_increase

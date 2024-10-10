@@ -11,6 +11,7 @@ height = 20.0
 
 [node name="Base Enemy" type="CharacterBody2D"]
 collision_layer = 2
+collision_mask = 3
 motion_mode = 1
 platform_floor_layers = 4278190080
 script = ExtResource("1_tcg4s")
@@ -36,6 +37,7 @@ position = Vector2(0, 13)
 shape = SubResource("CapsuleShape2D_5k27h")
 
 [node name="Attack_CD" type="Timer" parent="."]
+process_mode = 1
 one_shot = true
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

@@ -1,8 +1,8 @@
 extends Node
 class_name attack
 
-@export var damage: float = 5# attack dmg
-@export var cd: float = 1#cooldown
+@export var damage: float = 5 # attack dmg
+@export var cd: float = 1 #cooldown
 
 #multipliers
 var dmg_multi: float = 0
@@ -18,6 +18,7 @@ func _ready() -> void:
 		parent.call_update_stats.connect(_update_stats)
 	#creates timer
 	attack_cd = Timer.new()
+	attack_cd.process_mode = Node.PROCESS_MODE_PAUSABLE
 	#adds timer as a child of the node
 	add_child(attack_cd)
 	#set timer to play only once

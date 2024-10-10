@@ -19,7 +19,6 @@ var cd_reduct: float = 0
 
 #holds the player weapons
 var weapon_slots: Array[int]
-@export var weapon_list: JSON
 
 var direction: Vector2
 
@@ -56,11 +55,9 @@ func movement() -> void:
 func update_multiplier(data) -> void:
 	var type = data[0]
 	var value: float = data[1]
-	print("  " , type , "   " , value)
 	match type:
 		"dmg":
 			dmg_multi += value/100
-			print("dmg_multi ", dmg_multi)
 		"health":
 			hp_multi += value/100
 		"cd":
@@ -68,7 +65,6 @@ func update_multiplier(data) -> void:
 			cd_reduct = clampf(cd_reduct, 0.0, 0.8)
 		"speed":
 			speed_multi += (value/100)/50
-			print("speed multi: ", speed_multi)
 	update_stats()
 
 func update_stats() -> void:
@@ -79,7 +75,6 @@ func update_stats() -> void:
 	max_health = base_max_health + (base_max_health * hp_multi)
 	speed = speed + (speed * speed_multi)
 	speed = clampf(speed, 0.0, 1500.0)
-	print(speed)
 	call_update_stats.emit(dmg_multi, cd_reduct, size_multi)
 	update_health_bar()
 
@@ -93,21 +88,22 @@ func _add_weapon(id: int) -> void:
 		pass
 	#if player inventory is not full
 	else:
+		pass
 		#gets list of all weapons
-		var data: Dictionary = weapon_list.data.weapons[id]
-		var weapon_id: int = data.id
+		#var data: Dictionary = weapon_list.data.weapons[id]
+		#var weapon_id: int = data.id
 		#gets current free inv slot
-		var slot: Node = $Holster.get_child(size)
+		#var slot: Node = $Holster.get_child(size)
 		#gets script dir
-		var script: String = str(data.script)
+		#var script: String = str(data.script)
 		#sets attack script to weapon slot
-		slot.set_script(load(script))
-		slot.call("_ready")
-		weapon_slots.append(weapon_id)
-		print(weapon_slots)
+		#slot.set_script(load(script))
+		#slot.call("_ready")
+		#weapon_slots.append(weapon_id)
+		#print(weapon_slots)
 		#change slot name to fit weapon name
-		slot.name += "-" + data.name
-		update_stats()
+		#slot.name += "-" + data.name
+		#update_stats()
 
 func update_health_bar() -> void:
 	#this is meant to be called everytime any health
@@ -119,7 +115,6 @@ func update_health_bar() -> void:
 func _take_damage(damage: int) -> void:
 	#reduces hp based on amount of damage taken
 	current_health -= damage
-	print("hp ", current_health)
 	#updates healthbar to acuratly display new hp
 	update_health_bar()
 	#if health is depleted
