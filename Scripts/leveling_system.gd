@@ -13,10 +13,14 @@ var xp_increase_multi: int = 0.5
 var window_opened = false
 
 #Nodes
+@onready var level_display = $"../GUI/Level"
 @onready var ui_h = $"../POP_UP_GUI"
 @export var upgrade_menu = preload("res://Scenes/level_up_choices.tscn")
 
 #FUNCTIONS
+
+func _ready() -> void:
+	update_display()
 
 #Check if the Level Up UI is closed, if it is, allow another one to spawn
 #this is meant for scenarios where you level up multiple times in a row, so that
@@ -49,6 +53,7 @@ func check_exp() -> void:
 
 func level_up() -> void:
 	increase_xp_treshold() #increase level up experience requirement
+	update_display()
 	print("Current level: ", level)
 	#bring up Upgrade Selection UI
 	pop_up_options()
@@ -67,3 +72,6 @@ func pop_up_options() -> void:
 	#add menu to the upgrade selection UI
 	ui_h.add_child(menu)
 	window_opened = true
+
+func update_display() -> void:
+	level_display.text = "LEVEL %d" % level
