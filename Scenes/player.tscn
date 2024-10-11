@@ -37,7 +37,7 @@ curve = SubResource("Curve2D_td6gv")
 [node name="Spawn Range" type="PathFollow2D" parent="Camera2D/Spawn Area"]
 rotation = 1.5708
 
-[node name="Spawn Pivot" type="Marker2D" parent="Camera2D/Spawn Area/Spawn Range"]
+[node name="Spawn Point" type="Marker2D" parent="Camera2D/Spawn Area/Spawn Range"]
 rotation = 1.5708
 
 [node name="POP_UP_GUI" type="CanvasLayer" parent="."]

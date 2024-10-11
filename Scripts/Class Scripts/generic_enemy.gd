@@ -1,39 +1,41 @@
 extends CharacterBody2D
 class_name Enemy
 
-#enemy attributes
+#VARIABLES
+
+#Enemy stats
 @export var speed: float = 25
 @export var health: float = 10
 @export var damage: float = 2
 @export var xp: int = 5
 
-#multiplier
+#Stats multiplier
 var dmg_multi: float = 0
 var hp_multi: float = 0
 var speed_multi: float = 0
 var size_multi: float = 0
 var xp_multi: float = 0
 
-#booleans
+#Booleans
 var can_attack: bool = false
 
-#vectors
+#Vectors
 var direction: Vector2
 var player_pos: Vector2
 
-var player
-var player_node: CharacterBody2D
+#Nodes
+var player: CharacterBody2D
 @onready var wave_manager: Node2D = get_parent()
 @onready var attack_cd: Timer = $Attack_CD
 
+#FUNCTIONS
+
 func _ready() -> void:
+	#apply the stat multipliers
 	stat_multiplier()
-	attack_cd.process_mode = ProcessMode.PROCESS_MODE_PAUSABLE
-	print(attack_cd.process_mode)
 	
-func stat_multiplier() -> void:
-	global_scale += global_scale * size_multi
-	health += health * hp_multi
+	#timer setup
+	attack_cd.process_mode = ProcessMode.PROCESS_MODE_PAUSABLE
 
 func _physics_process(_delta: float) -> void:
 	#moves the enemy
@@ -41,6 +43,12 @@ func _physics_process(_delta: float) -> void:
 	#if the enemy can attack, call attack function
 	if can_attack == true:
 		attack()
+
+func stat_multiplier() -> void:
+	global_scale += global_scale * size_multi
+	health += health * hp_multi
+
+#ENEMY LOGIC
 
 func movement() -> void:
 	#get players position
@@ -57,7 +65,7 @@ func attack() -> void:
 	if attack_cd.is_stopped():
 		#call the _take_damage function on the player node
 		var dmg: float = damage + (damage * dmg_multi)
-		player_node.call("_take_damage", dmg)
+		player.call("_take_damage", dmg)
 		print("attack!")
 		#starts attack cooldown
 		attack_cd.start(.15)
@@ -71,35 +79,37 @@ func take_damage(dmg: float) -> void:
 		die()
 
 func die() -> void:
-	#removes enemy from scene, should play a death anim
-	#first
-	var gained_xp: int = xp + roundf((xp * xp_multi))
+	#removes enemy from scene, should play a death animation first
+	#calculates gained XP for the player
+	
+	var gained_xp: int = xp + int(roundf((xp * xp_multi)))
+	
+	#deletes the enemy
 	queue_free()
+	
+	#give xp to player
 	player.propagate_call("gain_exp", [gained_xp])
+	
+	#send signal to wave manager
 	wave_manager.call("on_entity_death")
 	print("xp: ", gained_xp)
-	#drop exp or give exp directly to player
-	#play death animation
 
+#COLLISION LOGIC
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	var body: CharacterBody2D = area.get_parent()
+	var body: Node2D = area.get_parent()
+	#if collided with player
 	if body.is_in_group("player"):
-		#load the player node into a variable
-		player_node = body
 		print("ready")
-		#becomes able to attack the player, as they are
-		#in range
+		#becomes able to attack the player, as they are in range
 		can_attack = true
-
 
 func _on_hitbox_area_exited(area: Area2D) -> void:
 	var body: CharacterBody2D = area.get_parent()
 	if body.is_in_group("player"):
-		#clear player node variable
-		player_node = null
 		print("out of range")
 		#cannot attack anymore as player is out of range
 		can_attack = false
+		
 		#resets the attack cooldown
 		attack_cd.stop()
