@@ -1,0 +1,98 @@
+[gd_scene load_steps=3 format=3 uid="uid://bq2bmgd02g8cv"]
+
+[ext_resource type="Theme" uid="uid://t73g016048ng" path="res://font_placeholder.tres" id="1_1ig7j"]
+[ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="1_3bqge"]
+
+[node name="Pause Menu" type="Control"]
+process_mode = 2
+z_index = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3bqge")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -115.0
+offset_right = 100.0
+offset_bottom = 115.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Options" type="VBoxContainer" parent="Background"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.5
+offset_top = -95.0
+offset_right = 85.5
+offset_bottom = 95.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Continue" type="Button" parent="Background/Options"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_neighbor_left = NodePath("../HSplitContainer/Main Menu")
+focus_neighbor_top = NodePath("../HSplitContainer/Quit")
+focus_neighbor_right = NodePath("../HSplitContainer/Quit")
+focus_neighbor_bottom = NodePath("../Leaderboard")
+theme = ExtResource("1_1ig7j")
+theme_override_font_sizes/font_size = 32
+text = "Continue
+"
+
+[node name="Leaderboard" type="Button" parent="Background/Options"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_neighbor_left = NodePath("../HSplitContainer/Main Menu")
+focus_neighbor_top = NodePath("../Continue")
+focus_neighbor_right = NodePath("../HSplitContainer/Quit")
+focus_neighbor_bottom = NodePath("../HSplitContainer/Main Menu")
+theme = ExtResource("1_1ig7j")
+theme_override_font_sizes/font_size = 32
+text = "Leaderboard"
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Background/Options"]
+layout_mode = 2
+split_offset = 80
+dragger_visibility = 1
+
+[node name="Main Menu" type="Button" parent="Background/Options/HSplitContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../Leaderboard")
+focus_neighbor_right = NodePath("../Quit")
+focus_neighbor_bottom = NodePath("../../Continue")
+theme = ExtResource("1_1ig7j")
+theme_override_font_sizes/font_size = 32
+text = "Menu"
+
+[node name="Quit" type="Button" parent="Background/Options/HSplitContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_neighbor_left = NodePath("../Main Menu")
+focus_neighbor_top = NodePath("../../Leaderboard")
+focus_neighbor_bottom = NodePath("../../Continue")
+theme = ExtResource("1_1ig7j")
+theme_override_font_sizes/font_size = 32
+text = "Quit"
+
+[connection signal="pressed" from="Background/Options/Continue" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Background/Options/Leaderboard" to="." method="_on_leaderboard_pressed"]
+[connection signal="pressed" from="Background/Options/HSplitContainer/Main Menu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="Background/Options/HSplitContainer/Quit" to="." method="_on_quit_pressed"]

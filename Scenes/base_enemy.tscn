@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1c7w62icklj7"]
+[gd_scene load_steps=7 format=3 uid="uid://c1c7w62icklj7"]
 
 [ext_resource type="Script" path="res://Scripts/Class Scripts/generic_enemy.gd" id="1_tcg4s"]
 [ext_resource type="Texture2D" uid="uid://cfxol6j2iyqcw" path="res://Sprites/icon.svg" id="2_ayr7t"]
+[ext_resource type="Texture2D" uid="uid://buy5rv280aqje" path="res://Sprites/bac.png" id="3_ogh2b"]
+[ext_resource type="Texture2D" uid="uid://jbupabfjuqys" path="res://Sprites/backdrop.png" id="4_wcn73"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r74yj"]
 radius = 22.0
@@ -17,7 +19,6 @@ platform_floor_layers = 4278190080
 script = ExtResource("1_tcg4s")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-visible = false
 modulate = Color(0, 0.521569, 0, 1)
 y_sort_enabled = true
 scale = Vector2(0.359375, 0.359375)
@@ -39,6 +40,18 @@ shape = SubResource("CapsuleShape2D_5k27h")
 [node name="Attack_CD" type="Timer" parent="."]
 process_mode = 1
 one_shot = true
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+visible = false
+offset_left = -20.0
+offset_top = -64.0
+offset_right = 20.0
+offset_bottom = -24.0
+max_value = 25.0
+step = 0.0
+nine_patch_stretch = true
+texture_under = ExtResource("3_ogh2b")
+texture_progress = ExtResource("4_wcn73")
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="." method="_on_hitbox_area_exited"]

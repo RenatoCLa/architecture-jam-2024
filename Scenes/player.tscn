@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://jbupabfjuqys" path="res://Sprites/backdrop.png" id="4_qygbs"]
 [ext_resource type="Script" path="res://Scripts/detect_enemies.gd" id="5_7255h"]
 [ext_resource type="Script" path="res://Scripts/Class Scripts/generic_attack.gd" id="5_76407"]
-[ext_resource type="Script" path="res://Scenes/game_time.gd" id="8_33gcc"]
+[ext_resource type="Script" path="res://Scripts/game_time.gd" id="8_33gcc"]
 [ext_resource type="Theme" uid="uid://t73g016048ng" path="res://font_placeholder.tres" id="8_geujg"]
 [ext_resource type="Texture2D" uid="uid://cg34xy48y0nx3" path="res://Sprites/base_floor_grass.png" id="10_u31q3"]
 
@@ -101,24 +101,24 @@ shape = SubResource("CircleShape2D_ngnva")
 
 [node name="Time_Control" type="Control" parent="GUI"]
 layout_mode = 3
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_top = 32.0
-offset_bottom = 32.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("8_33gcc")
 
 [node name="Time" type="Label" parent="GUI/Time_Control"]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -27.5
-offset_right = 27.5
-offset_bottom = 26.0
-grow_horizontal = 2
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -63.0
+offset_top = 20.0
+offset_right = -8.0
+offset_bottom = 47.0
+grow_horizontal = 0
 theme = ExtResource("8_geujg")
 text = "TIMER"
 label_settings = SubResource("LabelSettings_wil4a")
@@ -126,10 +126,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Level" type="Label" parent="GUI"]
-offset_left = 24.0
-offset_top = 28.0
-offset_right = 75.0
-offset_bottom = 54.0
+offset_left = 8.0
+offset_top = 20.0
+offset_right = 59.0
+offset_bottom = 47.0
 theme = ExtResource("8_geujg")
 text = "Level"
 label_settings = SubResource("LabelSettings_oxps3")
@@ -137,7 +137,7 @@ label_settings = SubResource("LabelSettings_oxps3")
 [node name="XP Bar" type="TextureProgressBar" parent="GUI"]
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 28.0
+offset_bottom = 22.0
 grow_horizontal = 2
 nine_patch_stretch = true
 texture_under = ExtResource("2_3wsjd")

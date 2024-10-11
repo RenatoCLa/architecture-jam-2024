@@ -31,6 +31,7 @@ var direction: Vector2
 @onready var health_bar: TextureProgressBar = $HealthBar
 @onready var spawn_range = $"Camera2D/Spawn Area/Spawn Range"
 @onready var spawn_point = $"Camera2D/Spawn Area/Spawn Range/Spawn Point"
+@onready var pause_menu = preload("res://Scenes/rooms/pause_menu.tscn")
 
 #FUNCTIONS
 
@@ -42,14 +43,14 @@ func _ready() -> void:
 	#sets the values in the hp bar to match the player
 	health_bar.max_value = max_health
 	health_bar.value = current_health
+	update_health_bar()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("menu"):
+		var menu = pause_menu.instantiate()
+		add_child(menu)
 
 func _physics_process(_delta: float) -> void:
-	#hide health bar if health is full
-	if current_health == max_health:
-		health_bar.hide()
-	else:
-		#shows health bar if health is not full
-		health_bar.show()
 	#calls the movement function
 	movement()
 
@@ -81,7 +82,12 @@ func update_stats() -> void:
 	#call this everytime a stat bonus is received
 	#used to make sure every function that needs these stats will have the 
 	#current stat and not a previous one
-	max_health = base_max_health + (base_max_health * hp_multi)
+	if current_health == max_health:
+		max_health = base_max_health + (base_max_health * hp_multi)
+		current_health = max_health
+	else:
+		max_health = base_max_health + (base_max_health * hp_multi)
+	
 	speed = speed + (speed * speed_multi)
 	speed = clampf(speed, 0.0, 1500.0) #limit how fast you can go
 	call_update_stats.emit(dmg_multi, cd_reduct, size_multi)
@@ -93,6 +99,7 @@ func update_health_bar() -> void:
 	#accuratly display hp information
 	health_bar.max_value = max_health
 	health_bar.value = current_health
+	health_display()
 
 func _take_damage(damage: int) -> void:
 	#reduces hp based on amount of damage taken
@@ -105,3 +112,11 @@ func _take_damage(damage: int) -> void:
 		#freeze game
 		#call end game screen
 		get_tree().quit()
+
+func health_display() -> void:
+		#hide health bar if health is full
+	if current_health == max_health:
+		health_bar.hide()
+	else:
+		#shows health bar if health is not full
+		health_bar.show()

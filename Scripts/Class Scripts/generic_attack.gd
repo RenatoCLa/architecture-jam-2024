@@ -8,7 +8,7 @@ class_name attack
 #attack multipliers
 var dmg_multi: float = 0
 var size_multi: float = 0
-var cd_reduct: float = 0 #
+var cd_reduct: float = 0
 
 # timer for the attack cooldown
 @onready var attack_cd: Timer = Timer.new()
@@ -36,12 +36,11 @@ func _attack() -> void:
 	
 	#adds the correct values to the bullet
 	new_bullet.global_scale = new_bullet.global_scale + (new_bullet.global_scale * size_multi)
-	new_bullet.damage = damage + (damage * dmg_multi)
 	new_bullet.global_position = get_parent().global_position
 	new_bullet.global_rotation = get_parent().global_rotation
-	
 	#adds bullet to the scene
 	add_child(new_bullet)
+	new_bullet.damage = damage + (damage * dmg_multi)
 	
 	#starts attack cooldown again
 	attack_cd.start(cd - (cd * cd_reduct))
@@ -51,4 +50,3 @@ func _update_stats(dmg_m: float, cd_r: float, size_m: float) -> void:
 	dmg_multi = dmg_m
 	cd_reduct = cd_r
 	size_multi = size_m
-	print("atualizado")

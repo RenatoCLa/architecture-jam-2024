@@ -5,6 +5,7 @@ class_name Enemy
 
 #Enemy stats
 @export var speed: float = 25
+var max_health: float
 @export var health: float = 10
 @export var damage: float = 2
 @export var xp: int = 5
@@ -27,12 +28,15 @@ var player_pos: Vector2
 var player: CharacterBody2D
 @onready var wave_manager: Node2D = get_parent()
 @onready var attack_cd: Timer = $Attack_CD
+@onready var health_bar: TextureProgressBar = $HealthBar
 
 #FUNCTIONS
 
 func _ready() -> void:
 	#apply the stat multipliers
 	stat_multiplier()
+	health_bar.max_value = health
+	update_health_bar()
 	
 	#timer setup
 	attack_cd.process_mode = ProcessMode.PROCESS_MODE_PAUSABLE
@@ -47,6 +51,7 @@ func _physics_process(_delta: float) -> void:
 func stat_multiplier() -> void:
 	global_scale += global_scale * size_multi
 	health += health * hp_multi
+	max_health = health
 
 #ENEMY LOGIC
 
@@ -73,6 +78,7 @@ func attack() -> void:
 func take_damage(dmg: float) -> void:
 	#decreases hp based on the damage taken
 	health -= dmg
+	update_health_bar()
 	#if health is depleted
 	if(health <= 0):
 		#call death function
@@ -82,7 +88,7 @@ func die() -> void:
 	#removes enemy from scene, should play a death animation first
 	#calculates gained XP for the player
 	
-	var gained_xp: int = xp + int(roundf((xp * xp_multi)))
+	var gained_xp: int = xp + int(roundf((xp * xp_multi))) + 1
 	
 	#deletes the enemy
 	queue_free()
@@ -93,6 +99,18 @@ func die() -> void:
 	#send signal to wave manager
 	wave_manager.call("on_entity_death")
 	print("xp: ", gained_xp)
+
+#UI LOGIC
+
+func update_health_bar() -> void:
+	health_bar.value = health
+	health_display()
+
+func health_display() -> void:
+	if health == max_health:
+		health_bar.hide()
+	else:
+		health_bar.show()
 
 #COLLISION LOGIC
 
