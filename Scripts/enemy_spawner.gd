@@ -164,8 +164,10 @@ func increase_wave_difficulty() -> void:
 		g_speed_multi += .1
 		g_xp_multi += 1
 		
+		rng.randomize()
 		#increases amount of enemies that will spawn in the next wave
-		wave_size_increment += roundf(wave_size/2)
+		wave_size_increment += rng.randi_range(roundf(wave_size/2), wave_size)
+		print("WAVE SIZE %d" %wave_size_increment)
 		wave_size += wave_size_increment
 	else: #increases stats by this much every other wave
 		#enemy stat multiplier
