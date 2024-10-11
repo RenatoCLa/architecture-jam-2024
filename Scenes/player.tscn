@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://1q8hs8188bfu"]
+[gd_scene load_steps=17 format=3 uid="uid://1q8hs8188bfu"]
 
 [ext_resource type="Script" path="res://Scripts/player_script.gd" id="1_w14cx"]
 [ext_resource type="Texture2D" uid="uid://cfxol6j2iyqcw" path="res://Sprites/icon.svg" id="2_3wsjd"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Scripts/Class Scripts/generic_attack.gd" id="5_76407"]
 [ext_resource type="Script" path="res://Scenes/game_time.gd" id="8_33gcc"]
 [ext_resource type="Theme" uid="uid://t73g016048ng" path="res://font_placeholder.tres" id="8_geujg"]
+[ext_resource type="Texture2D" uid="uid://cg34xy48y0nx3" path="res://Sprites/base_floor_grass.png" id="10_u31q3"]
 
 [sub_resource type="Curve2D" id="Curve2D_td6gv"]
 _data = {
@@ -68,7 +69,6 @@ offset_right = 20.0
 offset_bottom = -24.0
 max_value = 25.0
 step = 0.0
-fill_mode = 5
 nine_patch_stretch = true
 texture_under = ExtResource("3_uyuoo")
 texture_progress = ExtResource("4_qygbs")
@@ -133,3 +133,12 @@ offset_bottom = 54.0
 theme = ExtResource("8_geujg")
 text = "Level"
 label_settings = SubResource("LabelSettings_oxps3")
+
+[node name="XP Bar" type="TextureProgressBar" parent="GUI"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 28.0
+grow_horizontal = 2
+nine_patch_stretch = true
+texture_under = ExtResource("2_3wsjd")
+texture_progress = ExtResource("10_u31q3")
