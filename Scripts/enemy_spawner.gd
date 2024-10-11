@@ -22,6 +22,7 @@ var wave_size_increment: int = 0 #this += half of the wave size
 var enemy: PackedScene = preload("res://Scenes/base_enemy.tscn")
 
 #Onready variables
+@onready var wave_popup: PackedScene = preload("res://Scenes/wave_popup.tscn")
 @onready var player: CharacterBody2D = get_tree().get_first_node_in_group("player") #reference to the player node
 @onready var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 @onready var spawn_range: PathFollow2D #area where enemies can spawn
@@ -112,7 +113,7 @@ func on_entity_death() -> void:
 func start_wave() -> void:
 	print("dmg_multi: ", g_dmg_multi)
 	#display text here saying WAVE "N" once wave starts
-	#
+	display_wave_info()
 	print("wave started")
 	
 	#tells the game how many enemies should spawn in this wave
@@ -138,6 +139,11 @@ func wave_spawning() -> void:
 		spawned_enemies += 1
 		print("spawned: ", spawned_enemies, " / Wave: ", current_wave)
 		print(current_wave - spawned_enemies, " Remaining")
+
+func display_wave_info() -> void:
+	var popup = wave_popup.instantiate()
+	add_child(popup)
+	popup.label.text += str(wave)
 
 #called when the wave is finished
 func wave_over() -> void:

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="archGameJam"
-run/main_scene="res://Scenes/rooms/enemy_spawner_test_room.tscn"
+run/main_scene="res://Scenes/rooms/Main_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://Sprites/icon.svg"
 
@@ -26,6 +26,7 @@ window/size/viewport_height=360
 window/size/window_width_override=960
 window/size/window_height_override=540
 window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [dotnet]
 

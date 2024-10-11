@@ -5,8 +5,8 @@ extends Node
 #LVL Stats
 var level: int = 1
 var current_xp: int = 0
-var xp_treshold: int = 25
-var xp_increase: int = 15
+var xp_treshold: int = 1
+var xp_increase: int = 1
 var xp_increase_multi: int = 0.5
 
 #Booleans

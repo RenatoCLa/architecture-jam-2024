@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bc6int1l1gme5"]
+
+[ext_resource type="Script" path="res://Scripts/wave_popup.gd" id="1_fmgnl"]
+[ext_resource type="Theme" uid="uid://t73g016048ng" path="res://font_placeholder.tres" id="2_3bruy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_sjl13"]
+font_size = 20
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_fmgnl")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.0
+offset_top = -70.0
+offset_right = 47.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_3bruy")
+text = "WAVE"
+label_settings = SubResource("LabelSettings_sjl13")
+horizontal_alignment = 1
+vertical_alignment = 1
