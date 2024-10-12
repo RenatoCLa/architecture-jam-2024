@@ -9,10 +9,12 @@ signal call_update_stats()
 #Stats
 var speed: float = 150
 var base_speed: float = 150
-var max_health: float = 100
+var max_health: float = 1
 var base_max_health: float = 100
 var base_current_health: float
 var current_health: float
+
+var kill_count: int
 
 #Stats multipliers
 var hp_multi: float = 0
@@ -31,7 +33,12 @@ var direction: Vector2
 @onready var health_bar: TextureProgressBar = $HealthBar
 @onready var spawn_range = $"Camera2D/Spawn Area/Spawn Range"
 @onready var spawn_point = $"Camera2D/Spawn Area/Spawn Range/Spawn Point"
-@onready var pause_menu = preload("res://Scenes/rooms/pause_menu.tscn")
+@onready var time_tracker = $GUI/Time_Control
+@onready var GUI = $GUI
+
+#Preloadede Scenes
+@onready var pause_menu = preload("res://Scenes/Menus/pause_menu.tscn")
+@onready var game_over_screen = preload("res://Scenes/Menus/game_over_screen.tscn")
 
 #FUNCTIONS
 
@@ -48,7 +55,7 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("menu"):
 		var menu = pause_menu.instantiate()
-		add_child(menu)
+		$GUI.add_child(menu)
 
 func _physics_process(_delta: float) -> void:
 	#calls the movement function
@@ -108,10 +115,7 @@ func _take_damage(damage: int) -> void:
 	update_health_bar()
 	#if health is depleted
 	if(current_health <= 0):
-		#add death animation
-		#freeze game
-		#call end game screen
-		get_tree().quit()
+		die()
 
 func health_display() -> void:
 		#hide health bar if health is full
@@ -120,3 +124,15 @@ func health_display() -> void:
 	else:
 		#shows health bar if health is not full
 		health_bar.show()
+
+func die() -> void:
+	#add death animation
+	var game_over = game_over_screen.instantiate()
+	
+	game_over.kill_count = kill_count
+	game_over.sec = time_tracker.seconds
+	game_over.min = time_tracker.minutes
+	game_over.total_sec = int(roundf(time_tracker.time))
+	
+	time_tracker.time_stop()
+	GUI.add_child(game_over)

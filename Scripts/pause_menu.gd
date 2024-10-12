@@ -1,7 +1,7 @@
 extends Control
 
 func _ready() -> void:
-	$Background/Options/Play.grab_focus()
+	$Background/Options/Continue.grab_focus()
 	get_tree().paused = true
 
 func _input(event: InputEvent) -> void:
@@ -20,7 +20,7 @@ func _on_leaderboard_pressed() -> void:
 	pass # Replace with function body.
 
 func _on_main_menu_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/rooms/Main_menu.tscn")
+	get_tree().change_scene_to_file("res://Scenes/Menu/Main_menu.tscn")
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()

@@ -103,6 +103,7 @@ func update_pos() -> void:
 
 func on_entity_death() -> void:
 	#on death
+	player.kill_count += 1
 	current_wave_size -= 1 #reduce number of enemies by 1
 	print("current wave size: ", current_wave_size)
 	if current_wave_size <= 0: #if there's no enemy left

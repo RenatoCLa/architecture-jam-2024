@@ -21,7 +21,7 @@ var window_opened = false
 #FUNCTIONS
 
 func _ready() -> void:
-	update_time_display()
+	update_level_display()
 
 #Check if the Level Up UI is closed, if it is, allow another one to spawn
 #this is meant for scenarios where you level up multiple times in a row, so that
@@ -55,7 +55,7 @@ func check_exp() -> void:
 
 func level_up() -> void:
 	increase_xp_treshold() #increase level up experience requirement
-	update_time_display()
+	update_level_display()
 	print("Current level: ", level)
 	#bring up Upgrade Selection UI
 	pop_up_options()
@@ -76,7 +76,7 @@ func pop_up_options() -> void:
 	ui_h.add_child(menu)
 	window_opened = true
 
-func update_time_display() -> void:
+func update_level_display() -> void:
 	level_display.text = "LEVEL %d" % level
 
 func update_xp_bar() -> void:
