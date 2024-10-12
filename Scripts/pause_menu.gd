@@ -17,7 +17,9 @@ func close_menu() -> void:
 	queue_free()
 
 func _on_leaderboard_pressed() -> void:
-	pass # Replace with function body.
+	var lb_ref = load("res://Scenes/Menus/leaderboard.tscn")
+	var lb_node = lb_ref.instantiate()
+	get_tree().get_root().add_child(lb_node)
 
 func _on_main_menu_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/Menu/Main_menu.tscn")

@@ -133,6 +133,7 @@ func die() -> void:
 	game_over.sec = time_tracker.seconds
 	game_over.min = time_tracker.minutes
 	game_over.total_sec = int(roundf(time_tracker.time))
+	game_over.level = $XP.level
 	
 	time_tracker.time_stop()
 	GUI.add_child(game_over)

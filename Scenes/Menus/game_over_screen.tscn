@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dsna8ksy6lb1c"]
 
-[ext_resource type="Script" path="res://Scenes/Menus/game_over.gd" id="1_ltjmo"]
+[ext_resource type="Script" path="res://Scripts/game_over.gd" id="1_ltjmo"]
 [ext_resource type="Theme" uid="uid://t73g016048ng" path="res://font_placeholder.tres" id="2_3nspr"]
 [ext_resource type="Texture2D" uid="uid://cg34xy48y0nx3" path="res://Sprites/base_floor_grass.png" id="3_f7k4q"]
 
@@ -75,9 +75,11 @@ stretch_mode = 1
 
 [node name="Text Status" type="VBoxContainer" parent="Status Screen"]
 z_index = 2
+layout_mode = 0
 offset_left = 17.0
+offset_top = 16.0
 offset_right = 483.0
-offset_bottom = 74.0
+offset_bottom = 129.0
 
 [node name="CenterTime" type="CenterContainer" parent="Status Screen/Text Status"]
 layout_mode = 2
@@ -92,7 +94,7 @@ modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 theme = ExtResource("2_3nspr")
-text = "Run Time:"
+text = "Run Time :"
 label_settings = SubResource("LabelSettings_l4rup")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -120,7 +122,7 @@ modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 theme = ExtResource("2_3nspr")
-text = "Kills:"
+text = "Kills :"
 label_settings = SubResource("LabelSettings_jbc5v")
 
 [node name="Run Kill Display" type="Label" parent="Status Screen/Text Status/CenterKill/Kill Count"]
@@ -132,8 +134,92 @@ theme = ExtResource("2_3nspr")
 text = "150"
 label_settings = SubResource("LabelSettings_jbc5v")
 
+[node name="CenterScore" type="CenterContainer" parent="Status Screen/Text Status"]
+layout_mode = 2
+
+[node name="Score" type="HSplitContainer" parent="Status Screen/Text Status/CenterScore"]
+layout_mode = 2
+dragger_visibility = 1
+
+[node name="Run Score Title" type="Label" parent="Status Screen/Text Status/CenterScore/Score"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+theme = ExtResource("2_3nspr")
+text = "Score :"
+label_settings = SubResource("LabelSettings_jbc5v")
+
+[node name="Run Score Display" type="Label" parent="Status Screen/Text Status/CenterScore/Score"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+theme = ExtResource("2_3nspr")
+text = "0"
+label_settings = SubResource("LabelSettings_jbc5v")
+
+[node name="CenterSaveScore" type="CenterContainer" parent="Status Screen/Text Status"]
+layout_mode = 2
+
+[node name="Run Save Score" type="Button" parent="Status Screen/Text Status/CenterSaveScore"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme = ExtResource("2_3nspr")
+theme_override_font_sizes/font_size = 24
+disabled = true
+text = "Save Score"
+
+[node name="Control" type="Control" parent="Status Screen"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -39.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Status Screen/Control"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -91.0
+offset_top = -28.0
+offset_right = 91.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="Main Menu" type="Button" parent="Status Screen/Control/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_3nspr")
+theme_override_font_sizes/font_size = 24
+disabled = true
+text = "Main Menu"
+
+[node name="Quit Game" type="Button" parent="Status Screen/Control/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_3nspr")
+theme_override_font_sizes/font_size = 24
+disabled = true
+text = "Exit To Desktop"
+
 [node name="Label" type="Label" parent="."]
 visible = false
 custom_minimum_size = Vector2(0, 35)
+layout_mode = 0
 theme = ExtResource("2_3nspr")
 label_settings = SubResource("LabelSettings_jbc5v")
+
+[connection signal="pressed" from="Status Screen/Text Status/CenterSaveScore/Run Save Score" to="." method="_on_save_score_pressed"]
+[connection signal="pressed" from="Status Screen/Control/HBoxContainer/Main Menu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="Status Screen/Control/HBoxContainer/Quit Game" to="." method="_on_quit_pressed"]
