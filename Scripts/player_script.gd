@@ -9,8 +9,8 @@ signal call_update_stats()
 #Stats
 var speed: float = 150
 var base_speed: float = 150
-var max_health: float = 1
-var base_max_health: float = 100
+var max_health: float
+var base_max_health: float = 1
 var base_current_health: float
 var current_health: float
 
@@ -43,6 +43,8 @@ var direction: Vector2
 #FUNCTIONS
 
 func _ready() -> void:
+	max_health = base_max_health
+	
 	#max out player health
 	current_health = max_health
 	base_current_health = base_max_health
@@ -64,6 +66,12 @@ func _physics_process(_delta: float) -> void:
 func movement() -> void:
 	#getting the player direction from input
 	direction = Input.get_vector("walk_left","walk_right","walk_up","walk_down")
+	
+	if direction.x < 0:
+		$Sprite.flip_h = true
+	else:
+		$Sprite.flip_h = false
+	
 	#calculates velocity based on direction and speed
 	velocity = direction.normalized() * (speed + (speed * speed_multi))
 	
@@ -109,12 +117,17 @@ func update_health_bar() -> void:
 	health_display()
 
 func _take_damage(damage: int) -> void:
+	var tween = create_tween()
+	tween.tween_property($Sprite, "modulate", Color.RED, 0)
+	tween.tween_property($Sprite, "modulate", Color.WHITE, .5)
+	
 	#reduces hp based on amount of damage taken
 	current_health -= damage
 	#updates healthbar to acuratly display new hp
 	update_health_bar()
 	#if health is depleted
 	if(current_health <= 0):
+		tween.stop()
 		die()
 
 func health_display() -> void:
@@ -135,5 +148,6 @@ func die() -> void:
 	game_over.total_sec = int(roundf(time_tracker.time))
 	game_over.level = $XP.level
 	
+	create_tween().tween_property(self, "modulate", Color.TRANSPARENT, .2)
 	time_tracker.time_stop()
-	GUI.add_child(game_over)
+	create_tween().tween_callback(GUI.add_child.bind(game_over)).set_delay(.2)

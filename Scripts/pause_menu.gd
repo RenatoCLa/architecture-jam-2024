@@ -22,7 +22,7 @@ func _on_leaderboard_pressed() -> void:
 	get_tree().get_root().add_child(lb_node)
 
 func _on_main_menu_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/Menu/Main_menu.tscn")
+	get_tree().change_scene_to_file("res://Scenes/Menus/Main_menu.tscn")
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()

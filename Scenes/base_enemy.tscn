@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c1c7w62icklj7"]
 
 [ext_resource type="Script" path="res://Scripts/Class Scripts/generic_enemy.gd" id="1_tcg4s"]
-[ext_resource type="Texture2D" uid="uid://cfxol6j2iyqcw" path="res://Sprites/icon.svg" id="2_ayr7t"]
+[ext_resource type="Texture2D" uid="uid://bvi1oeeutvluq" path="res://Sprites/zombie.png" id="2_w4lth"]
 [ext_resource type="Texture2D" uid="uid://buy5rv280aqje" path="res://Sprites/bac.png" id="3_ogh2b"]
 [ext_resource type="Texture2D" uid="uid://jbupabfjuqys" path="res://Sprites/backdrop.png" id="4_wcn73"]
 
@@ -19,10 +19,10 @@ platform_floor_layers = 4278190080
 script = ExtResource("1_tcg4s")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-modulate = Color(0, 0.521569, 0, 1)
 y_sort_enabled = true
-scale = Vector2(0.359375, 0.359375)
-texture = ExtResource("2_ayr7t")
+position = Vector2(0, -2)
+scale = Vector2(3.5, 3.5)
+texture = ExtResource("2_w4lth")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 2

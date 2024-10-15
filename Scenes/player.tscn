@@ -1,15 +1,16 @@
-[gd_scene load_steps=17 format=3 uid="uid://1q8hs8188bfu"]
+[gd_scene load_steps=18 format=3 uid="uid://1q8hs8188bfu"]
 
 [ext_resource type="Script" path="res://Scripts/player_script.gd" id="1_w14cx"]
-[ext_resource type="Texture2D" uid="uid://cfxol6j2iyqcw" path="res://Sprites/icon.svg" id="2_3wsjd"]
 [ext_resource type="Script" path="res://Scripts/leveling_system.gd" id="3_1o6aa"]
-[ext_resource type="Texture2D" uid="uid://buy5rv280aqje" path="res://Sprites/bac.png" id="3_uyuoo"]
-[ext_resource type="Texture2D" uid="uid://jbupabfjuqys" path="res://Sprites/backdrop.png" id="4_qygbs"]
+[ext_resource type="Texture2D" uid="uid://ry211x1t7ctr" path="res://Sprites/player.png" id="3_edbds"]
+[ext_resource type="Texture2D" uid="uid://cnq273amqdhfw" path="res://Sprites/health_background.png" id="4_cepwf"]
+[ext_resource type="Texture2D" uid="uid://b830wadhq5tk3" path="res://Sprites/health_color.png" id="5_6rl8t"]
 [ext_resource type="Script" path="res://Scripts/detect_enemies.gd" id="5_7255h"]
 [ext_resource type="Script" path="res://Scripts/Class Scripts/generic_attack.gd" id="5_76407"]
 [ext_resource type="Script" path="res://Scripts/game_time.gd" id="8_33gcc"]
 [ext_resource type="Theme" uid="uid://t73g016048ng" path="res://font_placeholder.tres" id="8_geujg"]
-[ext_resource type="Texture2D" uid="uid://cg34xy48y0nx3" path="res://Sprites/base_floor_grass.png" id="10_u31q3"]
+[ext_resource type="Texture2D" uid="uid://da7l1qflopyyh" path="res://Sprites/xp_back.png" id="10_vqm8w"]
+[ext_resource type="Texture2D" uid="uid://bh178h8vfh1wv" path="res://Sprites/xp_bar.png" id="11_pprts"]
 
 [sub_resource type="Curve2D" id="Curve2D_td6gv"]
 _data = {
@@ -23,8 +24,9 @@ height = 22.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_tkwwr"]
 radius = 18.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ngnva"]
-radius = 275.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tcwyj"]
+radius = 213.0
+height = 718.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_wil4a"]
 font_size = 26
@@ -55,8 +57,9 @@ rotation = 1.5708
 script = ExtResource("3_1o6aa")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.328125, 0.328125)
-texture = ExtResource("2_3wsjd")
+position = Vector2(0, -5)
+scale = Vector2(3.375, 3.375)
+texture = ExtResource("3_edbds")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 10)
@@ -64,14 +67,14 @@ shape = SubResource("CapsuleShape2D_y2p1o")
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
 offset_left = -20.0
-offset_top = -64.0
+offset_top = -41.0
 offset_right = 20.0
-offset_bottom = -24.0
+offset_bottom = -34.0
 max_value = 25.0
 step = 0.0
 nine_patch_stretch = true
-texture_under = ExtResource("3_uyuoo")
-texture_progress = ExtResource("4_qygbs")
+texture_under = ExtResource("4_cepwf")
+texture_progress = ExtResource("5_6rl8t")
 
 [node name="Hitbox" type="Area2D" parent="."]
 
@@ -95,7 +98,8 @@ script = ExtResource("5_7255h")
 script = ExtResource("5_76407")
 
 [node name="Enemy Detection" type="CollisionShape2D" parent="Holster"]
-shape = SubResource("CircleShape2D_ngnva")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_tcwyj")
 
 [node name="GUI" type="CanvasLayer" parent="."]
 
@@ -140,5 +144,5 @@ anchor_right = 1.0
 offset_bottom = 22.0
 grow_horizontal = 2
 nine_patch_stretch = true
-texture_under = ExtResource("2_3wsjd")
-texture_progress = ExtResource("10_u31q3")
+texture_under = ExtResource("10_vqm8w")
+texture_progress = ExtResource("11_pprts")

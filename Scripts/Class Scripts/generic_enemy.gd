@@ -4,7 +4,7 @@ class_name Enemy
 #VARIABLES
 
 #Enemy stats
-@export var speed: float = 25
+@export var speed: float = 50
 var max_health: float
 @export var health: float = 10
 @export var damage: float = 2
@@ -28,15 +28,12 @@ var player_pos: Vector2
 var player: CharacterBody2D
 @onready var wave_manager: Node2D = get_parent()
 @onready var attack_cd: Timer = $Attack_CD
-@onready var health_bar: TextureProgressBar = $HealthBar
 
 #FUNCTIONS
 
 func _ready() -> void:
 	#apply the stat multipliers
 	stat_multiplier()
-	health_bar.max_value = health
-	update_health_bar()
 	
 	#timer setup
 	attack_cd.process_mode = ProcessMode.PROCESS_MODE_PAUSABLE
@@ -60,6 +57,10 @@ func movement() -> void:
 	player_pos = wave_manager.player_pos
 	#calculate the direction to reach player
 	direction = global_position.direction_to(player_pos)
+	if direction.x < 0:
+		$Sprite.flip_h = false
+	else:
+		$Sprite.flip_h = true
 	#calculate the enemy velocity
 	velocity = direction.normalized() * (speed + (speed * speed_multi))
 	#move towards that direction
@@ -78,7 +79,11 @@ func attack() -> void:
 func take_damage(dmg: float) -> void:
 	#decreases hp based on the damage taken
 	health -= dmg
-	update_health_bar()
+	
+	$Sprite.modulate = Color.RED
+	
+	create_tween().tween_property($Sprite, "modulate", Color.WHITE, .2)
+	
 	#if health is depleted
 	if(health <= 0):
 		#call death function
@@ -88,10 +93,15 @@ func die() -> void:
 	#removes enemy from scene, should play a death animation first
 	#calculates gained XP for the player
 	
+	var tween = create_tween()
+	
 	var gained_xp: int = xp + int(roundf((xp * xp_multi))) + 1
 	
+	tween.tween_property($Sprite, "modulate:v", 15, 0)
+	tween.tween_property($Sprite, "modulate", Color.TRANSPARENT, .1)
+	tween.tween_callback(queue_free)
 	#deletes the enemy
-	queue_free()
+	#queue_free()
 	
 	#give xp to player
 	player.propagate_call("gain_exp", [gained_xp])
@@ -99,18 +109,6 @@ func die() -> void:
 	#send signal to wave manager
 	wave_manager.call("on_entity_death")
 	print("xp: ", gained_xp)
-
-#UI LOGIC
-
-func update_health_bar() -> void:
-	health_bar.value = health
-	health_display()
-
-func health_display() -> void:
-	if health == max_health:
-		health_bar.hide()
-	else:
-		health_bar.show()
 
 #COLLISION LOGIC
 
