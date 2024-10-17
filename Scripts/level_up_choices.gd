@@ -32,6 +32,7 @@ func decide_card_amount() -> void:
 
 func spawn_choices(choices: int) -> void:
 	var n_choices = 0
+	rng.randomize()
 	#loop until all cards are created
 	while n_choices < choices:
 		var options = upgrade_option.instantiate()
@@ -43,10 +44,9 @@ func spawn_choices(choices: int) -> void:
 		n_choices += 1
 
 func choose_upgrade() -> Array:
-	rng.randomize()
 	#rework this
 	var type = up_pool.pick_random()
-	var value = [1, 5, 10, 15, 20, 25][rng.rand_weighted([.1, 3, 2, 1, .5, .1])]
+	var value = [15, 25, 50, 75, 100][rng.rand_weighted([3, 2, 1, .5, .1])]
 	return [type, value]
 
 func on_upgrade_selected(data) -> void:

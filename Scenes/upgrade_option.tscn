@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/upg_option.gd" id="1_dfbe2"]
 [ext_resource type="Texture2D" uid="uid://cfxol6j2iyqcw" path="res://Sprites/icon.svg" id="1_i4bbv"]
-[ext_resource type="Texture2D" uid="uid://cg34xy48y0nx3" path="res://Sprites/base_floor_grass.png" id="1_p1vvv"]
+[ext_resource type="Texture2D" uid="uid://bh178h8vfh1wv" path="res://Sprites/xp_bar.png" id="2_3ndto"]
 [ext_resource type="Theme" uid="uid://t73g016048ng" path="res://font_placeholder.tres" id="2_j5exn"]
 
 [node name="Upgrade Option" type="Control" node_paths=PackedStringArray("up_name", "icon", "description")]
@@ -25,12 +25,12 @@ icon = NodePath("Icon")
 description = NodePath("Description")
 
 [node name="Background" type="TextureRect" parent="."]
-modulate = Color(0.169245, 0.169245, 0.169245, 1)
+modulate = Color(0.445488, 0.445488, 0.445488, 1)
 custom_minimum_size = Vector2(100, 150)
 layout_mode = 0
 offset_right = 100.0
 offset_bottom = 125.0
-texture = ExtResource("1_p1vvv")
+texture = ExtResource("2_3ndto")
 expand_mode = 1
 
 [node name="Icon" type="TextureRect" parent="."]

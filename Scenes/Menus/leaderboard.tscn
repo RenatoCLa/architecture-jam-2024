@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://thi6hmjmfwfk"]
+[gd_scene load_steps=6 format=3 uid="uid://thi6hmjmfwfk"]
 
 [ext_resource type="Theme" uid="uid://t73g016048ng" path="res://font_placeholder.tres" id="1_453rp"]
 [ext_resource type="Script" path="res://Scripts/leaderboard.gd" id="1_dy1rg"]
 [ext_resource type="Texture2D" uid="uid://cg34xy48y0nx3" path="res://Sprites/base_floor_grass.png" id="1_sdrdf"]
+[ext_resource type="Texture2D" uid="uid://bh178h8vfh1wv" path="res://Sprites/xp_bar.png" id="2_ny30n"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6rhjl"]
 font_size = 32
@@ -21,15 +22,14 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Background" type="TextureRect" parent="Window"]
-modulate = Color(0.0392157, 0, 0, 1)
+modulate = Color(0.0339372, 0.0812314, 0.068519, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_sdrdf")
-stretch_mode = 1
+texture = ExtResource("2_ny30n")
 metadata/_edit_lock_ = true
 
 [node name="Title" type="Control" parent="Window"]
@@ -69,7 +69,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Background" type="TextureRect" parent="Window/Scores"]
-modulate = Color(100, 100, 100, 0.314)
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -92,7 +92,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 8
+theme_override_constants/separation = 0
 
 [node name="Close" type="Button" parent="."]
 offset_left = 16.0

@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://xmh07xugyqyc"]
+[gd_scene load_steps=5 format=3 uid="uid://xmh07xugyqyc"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_5hm27"]
 [ext_resource type="Theme" uid="uid://t73g016048ng" path="res://font_placeholder.tres" id="1_ud1gt"]
+[ext_resource type="Texture2D" uid="uid://7pu836d4h34u" path="res://Sprites/main_menu_background.png" id="2_cdiyc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vh58t"]
+font_size = 48
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -19,20 +23,37 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("2_cdiyc")
+
+[node name="Options2" type="Button" parent="."]
+visible = false
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+offset_left = 234.5
+offset_top = 211.5
+offset_right = 405.5
+offset_bottom = 261.5
+theme = ExtResource("1_ud1gt")
+theme_override_font_sizes/font_size = 32
+text = "Options"
+flat = true
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -148.0
-offset_top = 10.0
-offset_right = 148.0
-offset_bottom = 42.0
+offset_left = -265.0
+offset_top = 14.0
+offset_right = 264.0
+offset_bottom = 73.0
 grow_horizontal = 2
 theme = ExtResource("1_ud1gt")
 theme_override_font_sizes/font_size = 32
 text = "They Are EVERYWHERE !!!"
+label_settings = SubResource("LabelSettings_vh58t")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Options" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -42,9 +63,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -85.5
-offset_top = -98.5
+offset_top = -67.5
 offset_right = 85.5
-offset_bottom = 146.5
+offset_bottom = 115.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 15
@@ -56,6 +77,7 @@ focus_neighbor_top = NodePath("../Quit")
 theme = ExtResource("1_ud1gt")
 theme_override_font_sizes/font_size = 32
 text = "Play"
+flat = true
 
 [node name="Leaderboard" type="Button" parent="Options"]
 custom_minimum_size = Vector2(0, 50)
@@ -63,13 +85,7 @@ layout_mode = 2
 theme = ExtResource("1_ud1gt")
 theme_override_font_sizes/font_size = 32
 text = "Leaderboard"
-
-[node name="Options" type="Button" parent="Options"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-theme = ExtResource("1_ud1gt")
-theme_override_font_sizes/font_size = 32
-text = "Options"
+flat = true
 
 [node name="Quit" type="Button" parent="Options"]
 custom_minimum_size = Vector2(0, 50)
@@ -78,8 +94,9 @@ focus_neighbor_bottom = NodePath("../Play")
 theme = ExtResource("1_ud1gt")
 theme_override_font_sizes/font_size = 32
 text = "Quit"
+flat = true
 
+[connection signal="pressed" from="Options2" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="Options/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Options/Leaderboard" to="." method="_on_leaderboard_pressed"]
-[connection signal="pressed" from="Options/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="Options/Quit" to="." method="_on_quit_pressed"]

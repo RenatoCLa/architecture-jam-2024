@@ -8,9 +8,9 @@ signal call_update_stats()
 
 #Stats
 var speed: float = 150
-var base_speed: float = 150
+var base_speed: float = 125
 var max_health: float
-var base_max_health: float = 1
+var base_max_health: float = 50
 var base_current_health: float
 var current_health: float
 
@@ -87,10 +87,10 @@ func update_multiplier(data) -> void:
 		"health":
 			hp_multi += value/100
 		"cd":
-			cd_reduct += (value/100)/25
-			cd_reduct = clampf(cd_reduct, 0.0, 0.85) #limit how much cdr you have
+			cd_reduct += (value/100)/5
+			cd_reduct = clampf(cd_reduct, 0.0, 0.95) #limit how much cdr you have
 		"speed":
-			speed_multi += (value/100)/50
+			speed_multi += (value/100)/5
 	update_stats()
 
 func update_stats() -> void:
@@ -102,6 +102,7 @@ func update_stats() -> void:
 		current_health = max_health
 	else:
 		max_health = base_max_health + (base_max_health * hp_multi)
+		current_health += max_health * .15
 	
 	speed = speed + (speed * speed_multi)
 	speed = clampf(speed, 0.0, 1500.0) #limit how fast you can go

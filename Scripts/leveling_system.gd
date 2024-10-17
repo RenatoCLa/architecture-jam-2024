@@ -6,8 +6,8 @@ extends Node
 var level: int = 1
 var current_xp: int = 0
 var xp_treshold: int = 35
-var xp_increase: int = 15
-var xp_increase_multi: int = 0.5
+var xp_increase: int = 10
+var xp_increase_multi: int = 1.25
 
 #Booleans
 var window_opened = false

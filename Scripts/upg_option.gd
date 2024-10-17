@@ -37,21 +37,21 @@ func set_data(data: Array) -> void:
 	
 	match type:
 		"dmg":
-			up_name.text = "Strength"
-			icon.texture = icon.texture # change for dmg icon
+			up_name.text = "Stronger Bullets"
+			icon.texture = load("res://Sprites/bullet_up.png")
 			description.text = str("+ ", value,"% bonus damage")
 			
 		"cd":
 			up_name.text = "Haste"
-			icon.texture = icon.texture # change for dmg icon
-			description.text = str("+ ", value/25,"% reduced cooldowns")
+			icon.texture = load("res://Sprites/haste_up.png")
+			description.text = str("+ ", snapped(value/5, 0.01),"% reduced cooldowns")
 			
 		"speed":
 			up_name.text = "Energy Drink"
-			icon.texture = icon.texture # change for dmg icon
-			description.text = str("+ ", value/50,"% bonus movement speed")
+			icon.texture = load("res://Sprites/energy_up.png")
+			description.text = str("+ ", snapped(value/5, 0.01),"% bonus movement speed")
 			
 		"health":
-			up_name.text = "Powerful Drugs"
-			icon.texture = icon.texture # change for dmg icon
+			up_name.text = "Healthy meal"
+			icon.texture = load("res://Sprites/health_up.png")
 			description.text = str("+ ", value,"% bonus health")

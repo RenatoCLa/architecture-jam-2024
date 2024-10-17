@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://bovn57uo7n0st"]
 
-[ext_resource type="Texture2D" uid="uid://cg34xy48y0nx3" path="res://Sprites/base_floor_grass.png" id="1_ed0ip"]
 [ext_resource type="Script" path="res://Scripts/score_card.gd" id="1_sc441"]
 [ext_resource type="Theme" uid="uid://t73g016048ng" path="res://font_placeholder.tres" id="2_5o3ns"]
+[ext_resource type="Texture2D" uid="uid://shev3ew1l8f7" path="res://Sprites/lb.png" id="2_25i1o"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_yggph"]
 font_size = 20
@@ -22,8 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_ed0ip")
-stretch_mode = 1
+texture = ExtResource("2_25i1o")
 
 [node name="Leaderboard_Time" type="Label" parent="."]
 unique_name_in_owner = true

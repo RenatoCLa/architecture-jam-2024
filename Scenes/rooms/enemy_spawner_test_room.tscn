@@ -1,10 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://c7euccuy1ocgy"]
+[gd_scene load_steps=4 format=3 uid="uid://c7euccuy1ocgy"]
 
 [ext_resource type="PackedScene" uid="uid://1q8hs8188bfu" path="res://Scenes/player.tscn" id="1_4oquk"]
 [ext_resource type="PackedScene" uid="uid://bob6ir5r7naks" path="res://Scenes/enemy_spawner.tscn" id="2_jtq14"]
+[ext_resource type="Texture2D" uid="uid://bqqw6nkgkmct5" path="res://Sprites/floor.png" id="3_qb61s"]
 
 [node name="Root" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_4oquk")]
 
 [node name="Enemy Spawner" parent="." instance=ExtResource("2_jtq14")]
+
+[node name="Grass" type="Sprite2D" parent="."]
+z_index = -5
+texture_repeat = 2
+scale = Vector2(3, 3)
+texture = ExtResource("3_qb61s")
+region_enabled = true
+region_rect = Rect2(0, 0, 2500, 2500)
