@@ -4,6 +4,7 @@ extends Control
 @onready var level = preload("res://Scenes/rooms/enemy_spawner_test_room.tscn")
 
 func _ready() -> void:
+	DisplayServer.window_set_title("They Are EVERYWHERE!!!")
 	get_tree().paused = false
 	$Options/Play.grab_focus()
 
